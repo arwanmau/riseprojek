@@ -1,6 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
-import { Leaf, LayoutGrid, QrCode, ShieldCheck, Sun, Moon, LogOut, LogIn, Radio, Sparkles } from "lucide-react";
+import { Leaf, LayoutGrid, QrCode, ShieldCheck, Sun, Moon, LogOut, LogIn, Radio, Sparkles, Crown } from "lucide-react";
 import { RoleSwitcher } from "./RoleSwitcher";
+import { DeviceSwitcher } from "./DeviceSwitcher";
 import { useTheme } from "@/lib/theme-context";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
