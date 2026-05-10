@@ -32,6 +32,7 @@ type Ctx = {
   batches: Batch[];
   addBatch: (input: AddBatchInput) => Batch;
   handover: (batchId: string, input: HandoverInput) => BatchStatus | null;
+  removeBatch: (batchId: string) => void;
   nextStatusOf: (s: BatchStatus) => BatchStatus | null;
 };
 
