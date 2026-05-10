@@ -12,6 +12,9 @@ import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/lib/theme-context";
 import { RoleProvider } from "@/lib/role-context";
 import { BatchesProvider } from "@/lib/batches-context";
+import { DeviceProvider } from "@/lib/device-context";
+import { DeviceFrame } from "@/components/DeviceFrame";
+import { CommandPalette } from "@/components/CommandPalette";
 
 import appCss from "../styles.css?url";
 
