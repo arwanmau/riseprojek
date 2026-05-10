@@ -123,8 +123,13 @@ function RootComponent() {
         <AuthProvider>
           <RoleProvider>
             <BatchesProvider>
-              <Outlet />
-              <Toaster richColors position="top-right" />
+              <DeviceProvider>
+                <DeviceFrame>
+                  <Outlet />
+                </DeviceFrame>
+                <CommandPalette />
+                <Toaster richColors position="top-right" />
+              </DeviceProvider>
             </BatchesProvider>
           </RoleProvider>
         </AuthProvider>
