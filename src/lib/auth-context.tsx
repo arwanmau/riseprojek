@@ -29,6 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       name,
       email,
       avatar: name.split(" ").map((p) => p[0]).join("").slice(0, 2).toUpperCase(),
+      isAdmin: /admin/i.test(email),
     };
     localStorage.setItem(KEY, JSON.stringify(u));
     setUser(u);
