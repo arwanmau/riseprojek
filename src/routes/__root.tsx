@@ -13,6 +13,7 @@ import { ThemeProvider } from "@/lib/theme-context";
 import { RoleProvider } from "@/lib/role-context";
 import { BatchesProvider } from "@/lib/batches-context";
 import { DeviceProvider } from "@/lib/device-context";
+import { PhantomProvider } from "@/lib/phantom-context";
 import { DeviceFrame } from "@/components/DeviceFrame";
 import { CommandPalette } from "@/components/CommandPalette";
 
@@ -124,11 +125,13 @@ function RootComponent() {
           <RoleProvider>
             <BatchesProvider>
               <DeviceProvider>
-                <DeviceFrame>
-                  <Outlet />
-                </DeviceFrame>
-                <CommandPalette />
-                <Toaster richColors position="top-right" />
+                <PhantomProvider>
+                  <DeviceFrame>
+                    <Outlet />
+                  </DeviceFrame>
+                  <CommandPalette />
+                  <Toaster richColors position="top-right" />
+                </PhantomProvider>
               </DeviceProvider>
             </BatchesProvider>
           </RoleProvider>
