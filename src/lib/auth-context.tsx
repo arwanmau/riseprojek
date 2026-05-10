@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type AuthUser = { name: string; email: string; avatar: string };
+export type AuthUser = { name: string; email: string; avatar: string; isAdmin: boolean };
 
 type Ctx = {
   user: AuthUser | null;
