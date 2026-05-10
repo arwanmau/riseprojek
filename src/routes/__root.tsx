@@ -7,6 +7,14 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/lib/auth-context";
+import { ThemeProvider } from "@/lib/theme-context";
+import { RoleProvider } from "@/lib/role-context";
+import { BatchesProvider } from "@/lib/batches-context";
+import { DeviceProvider } from "@/lib/device-context";
+import { DeviceFrame } from "@/components/DeviceFrame";
+import { CommandPalette } from "@/components/CommandPalette";
 
 import appCss from "../styles.css?url";
 
@@ -72,20 +80,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Global Food Ledger — Blockchain Supply Chain for Staple Foods" },
+      { name: "description", content: "Decentralized supply chain tracking for rice, wheat and staple foods. Verified on-chain from farm to shelf." },
+      { property: "og:title", content: "Global Food Ledger" },
+      { property: "og:description", content: "Decentralized supply chain tracking for staple foods, secured on Polygon." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -113,7 +119,21 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <ThemeProvider>
+        <AuthProvider>
+          <RoleProvider>
+            <BatchesProvider>
+              <DeviceProvider>
+                <DeviceFrame>
+                  <Outlet />
+                </DeviceFrame>
+                <CommandPalette />
+                <Toaster richColors position="top-right" />
+              </DeviceProvider>
+            </BatchesProvider>
+          </RoleProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
