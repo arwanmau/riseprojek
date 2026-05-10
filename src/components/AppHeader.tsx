@@ -2,6 +2,7 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { Leaf, LayoutGrid, QrCode, ShieldCheck, Sun, Moon, LogOut, LogIn, Radio, Sparkles, Crown } from "lucide-react";
 import { RoleSwitcher } from "./RoleSwitcher";
 import { DeviceSwitcher } from "./DeviceSwitcher";
+import { PhantomButton } from "./PhantomButton";
 import { useTheme } from "@/lib/theme-context";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
@@ -70,6 +71,7 @@ export function AppHeader() {
 
         <div className="flex items-center gap-1.5">
           <DeviceSwitcher />
+          <PhantomButton />
           {user && <RoleSwitcher />}
 
           <Button
