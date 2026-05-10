@@ -140,9 +140,13 @@ export function BatchesProvider({ children }: { children: ReactNode }) {
     return outStatus;
   };
 
+  const removeBatch: Ctx["removeBatch"] = (batchId) => {
+    setBatches((prev) => prev.filter((b) => b.id !== batchId));
+  };
+
   return (
     <BatchesContext.Provider
-      value={{ batches, addBatch, handover, nextStatusOf: (s) => NEXT_STATUS[s] }}
+      value={{ batches, addBatch, handover, removeBatch, nextStatusOf: (s) => NEXT_STATUS[s] }}
     >
       {children}
     </BatchesContext.Provider>
