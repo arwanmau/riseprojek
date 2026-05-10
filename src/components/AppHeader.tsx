@@ -65,9 +65,11 @@ export function AppHeader() {
           <NavLink to="/live" label="Live Map" Icon={Radio} />
           <NavLink to="/insights" label="AI Insights" Icon={Sparkles} />
           <NavLink to="/scan" label="Scan" Icon={QrCode} />
+          {user?.isAdmin && <NavLink to="/admin" label="Admin" Icon={Crown} />}
         </nav>
 
         <div className="flex items-center gap-1.5">
+          <DeviceSwitcher />
           {user && <RoleSwitcher />}
 
           <Button
