@@ -13,6 +13,7 @@ import { Route as ScanRouteImport } from './routes/scan'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ScanRoute = ScanRouteImport.update({
@@ -35,6 +36,11 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/insights': typeof InsightsRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/insights': typeof InsightsRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/insights': typeof InsightsRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
@@ -65,14 +74,15 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/insights' | '/live' | '/login' | '/scan'
+  fullPaths: '/' | '/admin' | '/insights' | '/live' | '/login' | '/scan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/insights' | '/live' | '/login' | '/scan'
-  id: '__root__' | '/' | '/insights' | '/live' | '/login' | '/scan'
+  to: '/' | '/admin' | '/insights' | '/live' | '/login' | '/scan'
+  id: '__root__' | '/' | '/admin' | '/insights' | '/live' | '/login' | '/scan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   InsightsRoute: typeof InsightsRoute
   LiveRoute: typeof LiveRoute
   LoginRoute: typeof LoginRoute
@@ -109,6 +119,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +138,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   InsightsRoute: InsightsRoute,
   LiveRoute: LiveRoute,
   LoginRoute: LoginRoute,
