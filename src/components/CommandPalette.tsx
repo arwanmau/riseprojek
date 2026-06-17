@@ -9,7 +9,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { LayoutGrid, QrCode, Radio, Sparkles, Crown, Sun, Moon, LogOut, Search } from "lucide-react";
+import { LayoutGrid, QrCode, Radio, Sparkles, Crown, Sun, Moon, LogOut, Search, CreditCard } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 import { useAuth } from "@/lib/auth-context";
 import { useDevice, type DeviceMode } from "@/lib/device-context";
@@ -64,9 +64,13 @@ export function CommandPalette() {
             <CommandItem onSelect={() => go("/")}><LayoutGrid className="mr-2 h-4 w-4" />Dashboard</CommandItem>
             <CommandItem onSelect={() => go("/live")}><Radio className="mr-2 h-4 w-4" />Live Map</CommandItem>
             <CommandItem onSelect={() => go("/insights")}><Sparkles className="mr-2 h-4 w-4" />AI Insights</CommandItem>
+            <CommandItem onSelect={() => go("/subscription")}><CreditCard className="mr-2 h-4 w-4" />Langganan & Loyalitas</CommandItem>
             <CommandItem onSelect={() => go("/scan")}><QrCode className="mr-2 h-4 w-4" />Scan QR</CommandItem>
             {user?.isAdmin && (
-              <CommandItem onSelect={() => go("/admin")}><Crown className="mr-2 h-4 w-4" />Admin Console</CommandItem>
+              <CommandItem onSelect={() => go("/admin")}>
+                <Crown className="mr-2 h-4 w-4" />
+                Admin Dashboard & Analytics
+              </CommandItem>
             )}
           </CommandGroup>
           <CommandSeparator />

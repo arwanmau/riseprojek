@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Leaf, ShieldCheck, Loader2, LogIn } from "lucide-react";
+import { Leaf, ShieldCheck, Loader2, LogIn, Crown } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
@@ -25,7 +25,7 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   if (user) {
-    navigate({ to: "/" });
+    navigate({ to: user.isAdmin ? "/admin" : "/" });
   }
 
   const onSubmit = async (e: FormEvent) => {
@@ -33,11 +33,13 @@ function LoginPage() {
     if (!email || !password) return;
     setLoading(true);
     try {
-      await login(email, password);
+      await login(email, password, "user");
       toast.success("Login berhasil", { description: "Selamat datang kembali." });
       navigate({ to: "/" });
-    } catch {
-      toast.error("Login gagal");
+    } catch (err) {
+      toast.error("Login gagal", {
+        description: err instanceof Error ? err.message : "Periksa email dan password.",
+      });
     } finally {
       setLoading(false);
     }
@@ -45,13 +47,12 @@ function LoginPage() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
-      {/* Brand panel */}
       <div className="relative hidden overflow-hidden bg-gradient-primary p-10 text-primary-foreground lg:flex lg:flex-col lg:justify-between">
         <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-16 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
         <Link to="/" className="relative flex items-center gap-2.5">
-          <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/15 backdrop-blur">
+          <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20">
             <Leaf className="h-5 w-5" />
           </div>
           <div className="text-base font-bold tracking-tight">Global Food Ledger</div>
@@ -63,17 +64,16 @@ function LoginPage() {
           </h1>
           <p className="mt-3 max-w-md text-sm opacity-90">
             Lacak setiap batch pangan staple dengan transparansi penuh, jaminan smart contract,
-            dan keamanan jaringan Polygon.
+            dan keamanan jaringan Solana.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold backdrop-blur">
-            <ShieldCheck className="h-4 w-4" /> Secured by Polygon
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1.5 text-xs font-semibold">
+            <ShieldCheck className="h-4 w-4" /> Secured by Solana
           </div>
         </div>
 
         <div className="relative text-xs opacity-80">© 2026 Global Food Ledger</div>
       </div>
 
-      {/* Form panel */}
       <div className="flex items-center justify-center bg-background p-6 sm:p-10">
         <div className="w-full max-w-sm">
           <div className="lg:hidden">
@@ -87,7 +87,7 @@ function LoginPage() {
 
           <h2 className="text-2xl font-bold tracking-tight">Selamat datang</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Masuk untuk mengakses dashboard rantai pasok.
+            Masuk sebagai pengguna untuk mengakses dashboard rantai pasok.
           </p>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
@@ -105,9 +105,9 @@ function LoginPage() {
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <button type="button" className="text-xs text-primary hover:underline">
+                <Link to="/forgot-password" className="text-xs text-primary hover:underline">
                   Lupa password?
-                </button>
+                </Link>
               </div>
               <Input
                 id="password"
@@ -125,16 +125,28 @@ function LoginPage() {
               className="w-full gap-2 bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95"
             >
               {loading ? (
-                <><Loader2 className="h-4 w-4 animate-spin" /> Memproses...</>
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" /> Memproses...
+                </>
               ) : (
-                <><LogIn className="h-4 w-4" /> Masuk</>
+                <>
+                  <LogIn className="h-4 w-4" /> Masuk
+                </>
               )}
             </Button>
 
             <p className="text-center text-[11px] text-muted-foreground">
-              Demo: gunakan email & password apa saja.
+              Demo user: <code>budi.santoso@sawahhijau.id</code> / <code>password123</code>
             </p>
           </form>
+
+          <div className="mt-6 rounded-lg border bg-muted/40 p-3 text-center text-xs text-muted-foreground">
+            <Crown className="mx-auto mb-1.5 h-4 w-4 text-primary" />
+            Administrator?{" "}
+            <Link to="/admin/login" className="font-semibold text-primary hover:underline">
+              Login Admin
+            </Link>
+          </div>
         </div>
       </div>
     </div>

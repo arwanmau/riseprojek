@@ -9,13 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SubscriptionRouteImport } from './routes/subscription'
 import { Route as ScanRouteImport } from './routes/scan'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as ApiSaasSubscriptionRouteImport } from './routes/api/saas/subscription'
+import { Route as ApiSaasLoyaltyRouteImport } from './routes/api/saas/loyalty'
+import { Route as ApiAiStockRouteImport } from './routes/api/ai/stock'
+import { Route as ApiAdminUsersRouteImport } from './routes/api/admin/users'
+import { Route as ApiAdminHealthRouteImport } from './routes/api/admin/health'
+import { Route as ApiAdminAnalyticsRouteImport } from './routes/api/admin/analytics'
 
+const SubscriptionRoute = SubscriptionRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScanRoute = ScanRouteImport.update({
   id: '/scan',
   path: '/scan',
@@ -36,6 +50,11 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -46,51 +65,174 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiSaasSubscriptionRoute = ApiSaasSubscriptionRouteImport.update({
+  id: '/api/saas/subscription',
+  path: '/api/saas/subscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiSaasLoyaltyRoute = ApiSaasLoyaltyRouteImport.update({
+  id: '/api/saas/loyalty',
+  path: '/api/saas/loyalty',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiStockRoute = ApiAiStockRouteImport.update({
+  id: '/api/ai/stock',
+  path: '/api/ai/stock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminUsersRoute = ApiAdminUsersRouteImport.update({
+  id: '/api/admin/users',
+  path: '/api/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminHealthRoute = ApiAdminHealthRouteImport.update({
+  id: '/api/admin/health',
+  path: '/api/admin/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminAnalyticsRoute = ApiAdminAnalyticsRouteImport.update({
+  id: '/api/admin/analytics',
+  path: '/api/admin/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/insights': typeof InsightsRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
   '/scan': typeof ScanRoute
+  '/subscription': typeof SubscriptionRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/api/admin/analytics': typeof ApiAdminAnalyticsRoute
+  '/api/admin/health': typeof ApiAdminHealthRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
+  '/api/ai/stock': typeof ApiAiStockRoute
+  '/api/saas/loyalty': typeof ApiSaasLoyaltyRoute
+  '/api/saas/subscription': typeof ApiSaasSubscriptionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/insights': typeof InsightsRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
   '/scan': typeof ScanRoute
+  '/subscription': typeof SubscriptionRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/api/admin/analytics': typeof ApiAdminAnalyticsRoute
+  '/api/admin/health': typeof ApiAdminHealthRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
+  '/api/ai/stock': typeof ApiAiStockRoute
+  '/api/saas/loyalty': typeof ApiSaasLoyaltyRoute
+  '/api/saas/subscription': typeof ApiSaasSubscriptionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/insights': typeof InsightsRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
   '/scan': typeof ScanRoute
+  '/subscription': typeof SubscriptionRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/api/admin/analytics': typeof ApiAdminAnalyticsRoute
+  '/api/admin/health': typeof ApiAdminHealthRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
+  '/api/ai/stock': typeof ApiAiStockRoute
+  '/api/saas/loyalty': typeof ApiSaasLoyaltyRoute
+  '/api/saas/subscription': typeof ApiSaasSubscriptionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/insights' | '/live' | '/login' | '/scan'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/forgot-password'
+    | '/insights'
+    | '/live'
+    | '/login'
+    | '/scan'
+    | '/subscription'
+    | '/admin/login'
+    | '/api/admin/analytics'
+    | '/api/admin/health'
+    | '/api/admin/users'
+    | '/api/ai/stock'
+    | '/api/saas/loyalty'
+    | '/api/saas/subscription'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/insights' | '/live' | '/login' | '/scan'
-  id: '__root__' | '/' | '/admin' | '/insights' | '/live' | '/login' | '/scan'
+  to:
+    | '/'
+    | '/admin'
+    | '/forgot-password'
+    | '/insights'
+    | '/live'
+    | '/login'
+    | '/scan'
+    | '/subscription'
+    | '/admin/login'
+    | '/api/admin/analytics'
+    | '/api/admin/health'
+    | '/api/admin/users'
+    | '/api/ai/stock'
+    | '/api/saas/loyalty'
+    | '/api/saas/subscription'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/forgot-password'
+    | '/insights'
+    | '/live'
+    | '/login'
+    | '/scan'
+    | '/subscription'
+    | '/admin/login'
+    | '/api/admin/analytics'
+    | '/api/admin/health'
+    | '/api/admin/users'
+    | '/api/ai/stock'
+    | '/api/saas/loyalty'
+    | '/api/saas/subscription'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   InsightsRoute: typeof InsightsRoute
   LiveRoute: typeof LiveRoute
   LoginRoute: typeof LoginRoute
   ScanRoute: typeof ScanRoute
+  SubscriptionRoute: typeof SubscriptionRoute
+  ApiAdminAnalyticsRoute: typeof ApiAdminAnalyticsRoute
+  ApiAdminHealthRoute: typeof ApiAdminHealthRoute
+  ApiAdminUsersRoute: typeof ApiAdminUsersRoute
+  ApiAiStockRoute: typeof ApiAiStockRoute
+  ApiSaasLoyaltyRoute: typeof ApiSaasLoyaltyRoute
+  ApiSaasSubscriptionRoute: typeof ApiSaasSubscriptionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/subscription': {
+      id: '/subscription'
+      path: '/subscription'
+      fullPath: '/subscription'
+      preLoaderRoute: typeof SubscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scan': {
       id: '/scan'
       path: '/scan'
@@ -119,6 +261,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -133,17 +282,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/saas/subscription': {
+      id: '/api/saas/subscription'
+      path: '/api/saas/subscription'
+      fullPath: '/api/saas/subscription'
+      preLoaderRoute: typeof ApiSaasSubscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/saas/loyalty': {
+      id: '/api/saas/loyalty'
+      path: '/api/saas/loyalty'
+      fullPath: '/api/saas/loyalty'
+      preLoaderRoute: typeof ApiSaasLoyaltyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai/stock': {
+      id: '/api/ai/stock'
+      path: '/api/ai/stock'
+      fullPath: '/api/ai/stock'
+      preLoaderRoute: typeof ApiAiStockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/users': {
+      id: '/api/admin/users'
+      path: '/api/admin/users'
+      fullPath: '/api/admin/users'
+      preLoaderRoute: typeof ApiAdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/health': {
+      id: '/api/admin/health'
+      path: '/api/admin/health'
+      fullPath: '/api/admin/health'
+      preLoaderRoute: typeof ApiAdminHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/analytics': {
+      id: '/api/admin/analytics'
+      path: '/api/admin/analytics'
+      fullPath: '/api/admin/analytics'
+      preLoaderRoute: typeof ApiAdminAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminLoginRoute: typeof AdminLoginRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminLoginRoute: AdminLoginRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   InsightsRoute: InsightsRoute,
   LiveRoute: LiveRoute,
   LoginRoute: LoginRoute,
   ScanRoute: ScanRoute,
+  SubscriptionRoute: SubscriptionRoute,
+  ApiAdminAnalyticsRoute: ApiAdminAnalyticsRoute,
+  ApiAdminHealthRoute: ApiAdminHealthRoute,
+  ApiAdminUsersRoute: ApiAdminUsersRoute,
+  ApiAiStockRoute: ApiAiStockRoute,
+  ApiSaasLoyaltyRoute: ApiSaasLoyaltyRoute,
+  ApiSaasSubscriptionRoute: ApiSaasSubscriptionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
