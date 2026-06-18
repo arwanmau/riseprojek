@@ -1,14 +1,9 @@
 {
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ],
+  
   "routes": [
-    { "src": "/(.*)", "dest": "/api/index.js" }
+    { "src": "/(.*)", "dest": "/api/index.cjs" }
   ],
   "functions": {
-    "api/index.js": { "runtime": "nodejs18.x" }
+    "api/index.cjs": { "runtime": "nodejs18.x" }
   }
 }
