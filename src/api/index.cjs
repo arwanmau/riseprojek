@@ -18,18 +18,15 @@ if (!bundlePath) {
     res.end('SSR bundle not found. Run build and ensure dist/server exists.');
   };
 } else {
-  // Try CJS require first; if it fails (likely ESM), dynamic import as fallback.
   let handlerPromise = (async () => {
     try {
       const server = require(bundlePath);
       return server?.default || server?.handler || server;
     } catch (requireErr) {
       try {
-        // dynamic import needs file:// URL
         const url = require('url').pathToFileURL(bundlePath).href;
         const imported = await import(url);
-        const srv = imported?.default || imported?.handler || imported;
-        return srv;
+        return imported?.default || imported?.handler || imported;
       } catch (importErr) {
         console.error('Failed to load SSR bundle via require and import:', requireErr, importErr);
         return null;
@@ -44,7 +41,6 @@ if (!bundlePath) {
       return res.end('Failed to load SSR bundle (see server logs).');
     }
     try {
-      // handler may be sync or return a promise
       return handler(req, res);
     } catch (err) {
       console.error('SSR handler error:', err);
