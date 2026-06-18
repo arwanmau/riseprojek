@@ -1,8 +1,5 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.cjs"
-    }
+  "routes": [
+    { "src": "/(.*)", "dest": "/api/index.cjs" }
   ]
 }

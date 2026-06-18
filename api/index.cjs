@@ -4,7 +4,7 @@ const fs = require('fs');
 function findServerBundle() {
   const dir = path.join(__dirname, '..', 'dist', 'server');
   if (!fs.existsSync(dir)) return null;
-  const files = fs.readdirSync(dir).filter(f => f.endsWith('.js') || f.endsWith('.cjs') || f.endsWith('.mjs'));
+  const files = fs.readdirSync(dir).filter(f => /\.m?js$/.test(f) || f.endsWith('.cjs'));
   if (!files.length) return null;
   const prefer = files.find(f => f === 'server.js') || files.find(f => f.startsWith('server-')) || files[0];
   return prefer ? path.join(dir, prefer) : null;
