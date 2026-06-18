@@ -1,5 +1,22 @@
 {
-  "routes": [
-    { "src": "/(.*)", "dest": "/api/index.cjs" }
-  ]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    },
+    {
+      "src": "/_health",
+      "dest": "/api/index.cjs"
+    },
+    {
+      "src": "/_ready",
+      "dest": "/api/index.cjs"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.cjs"
+    }
+  ],
+  "installCommand": "npm install --legacy-peer-deps",
+  "framework": "vite"
 }
